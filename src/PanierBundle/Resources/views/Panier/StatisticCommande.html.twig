@@ -1,0 +1,58 @@
+{% extends "@User/Page_admin.html.twig" %}
+{% block body %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#mourad tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <style>
+        a.btn {
+            -webkit-transform: scale(0.8);
+            -moz-transform: scale(0.8);
+            -o-transform: scale(0.8);
+            -webkit-transition-duration: 0.5s;
+            -moz-transition-duration: 0.5s;
+            -o-transition-duration: 0.5s;
+            padding-right: 2px;
+            padding-left: 2px;
+        }
+        .test {
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+        .change {
+            color: white;
+        }
+    </style>
+    <div class="test">
+
+        <div class="col-lg-20 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Statistics of orders by products per month</h4>
+                    <div class="tri">
+                        <form action="{{ path('stat') }}" method="POST">
+                            <select name="choix" class="form-control form-control-lg">
+                                {% for p in produits%}
+                                    <option value="{{p.nom}}">{{ p.nom }}</option>
+                                {% endfor %}
+                            </select>
+                            <button style="margin-top: 15px;" type="submit" class="btn btn-secondary btn-lg btn-block">Afficher Stats</button>
+                        </form>
+                    </div>
+
+                </div>
+                </div>
+            </div>
+
+
+    </div>
+
+{% endblock %}

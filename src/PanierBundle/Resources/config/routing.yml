@@ -1,0 +1,37 @@
+panier_homepage:
+    path:     /
+    defaults: { _controller: PanierBundle:Default:index }
+AjouterCommande:
+    path:     /AjouterCommande/{id}
+    defaults: { _controller: PanierBundle:Panier:AjouterCommande}
+AfficherCommandes:
+    path:     /AfficherCommandes
+    defaults: { _controller: PanierBundle:Panier:listCommandes}
+AfficherCommandesFront:
+    path:     /AfficherCommandesFront
+    defaults: { _controller: PanierBundle:Panier:listCommandesFront}
+SupprimerCommandesFront:
+    path:     /SupprimerCommande/{id}
+    defaults: { _controller: PanierBundle:Panier:supprimerCommandeFront}
+SupprimerCommandesBack:
+    path:     /SupprimerCommandeBack/{id}
+    defaults: { _controller: PanierBundle:Panier:supprimerCommandeBack}
+
+ValiderCommandes:
+    path:     /ValiderCommandes/{id}
+    defaults: { _controller: PanierBundle:Panier:ValiderCommandes}
+pdf:
+    path:     /pdf
+    defaults: { _controller: PanierBundle:Panier:Pdf}
+triCommande:
+    path:     /triCommande
+    defaults: { _controller: PanierBundle:Panier:TriCommande}
+DisplayStatistic:
+    path:     /DisplayStatistic
+    defaults: { _controller: PanierBundle:Panier:DisplayStatistics}
+stat:
+    path:     /stat
+    defaults: { _controller: PanierBundle:Panier:statCommandes}
+HistoriqueClient:
+    path:     /HistoriqueClient
+    defaults: { _controller: PanierBundle:Panier:HistoriqueClient}

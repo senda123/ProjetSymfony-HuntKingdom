@@ -1,0 +1,27 @@
+reclamation_homepage:
+    path:     /
+    defaults: { _controller: ReclamationBundle:Default:index }
+
+AfficherReclamation:
+    path:     /AfficherReclamation
+    defaults: { _controller: ReclamationBundle:Reclamation:AfficherReclamationsFront }
+
+AjouterReclamation:
+    path:     /AjouterReclamation
+    defaults: { _controller: ReclamationBundle:Reclamation:AjoutReclamation }
+
+SupprimerReclamation:
+    path:     /SupprimerReclamation/{id}
+    defaults: { _controller: ReclamationBundle:Reclamation:SupprimerReclamationFront }
+
+AfficherReclamationBack:
+    path:     /AfficherReclamationBack
+    defaults: { _controller: ReclamationBundle:Reclamation:AfficherReclamationBack }
+
+SupprimerReclamationBack:
+    path:     /SupprimerReclamationBack/{id}
+    defaults: { _controller: ReclamationBundle:Reclamation:SupprimerReclamationBack }
+
+TraiterReclamation:
+    path:     /TraiterReclamation/{id}
+    defaults: { _controller: ReclamationBundle:Reclamation:TraiterReclamation }

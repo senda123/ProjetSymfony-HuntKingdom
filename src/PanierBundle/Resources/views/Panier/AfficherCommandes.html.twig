@@ -1,0 +1,198 @@
+{% extends "@User/Page_admin.html.twig" %}
+{% block body %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#mourad tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <style>
+        a.btn {
+            -webkit-transform: scale(0.8);
+            -moz-transform: scale(0.8);
+            -o-transform: scale(0.8);
+            -webkit-transition-duration: 0.5s;
+            -moz-transition-duration: 0.5s;
+            -o-transition-duration: 0.5s;
+            padding-right: 2px;
+            padding-left: 2px;
+        }
+        .test {
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+        .change {
+            color: white;
+        }
+    </style>
+    <div class="test">
+
+        <div class="col-lg-20 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Orders List</h4>
+                    <div class="tri">
+                        <form action="{{ path('triCommande') }}" method="POST">
+                    <select name="choix" class="form-control form-control-lg">
+                        <option value="total_c">Prix Total</option>
+                        <option value="etat_c">Etat</option>
+                        <option value="idP">Produit</option>
+                        <option value="date_c">Date</option>
+                    </select>
+                    <button style="margin-top: 15px;" type="submit" class="btn btn-secondary btn-lg btn-block">Trier</button>
+                        </form>
+                    </div>
+                    <div class="table-responsive pt-3">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Référence Commande
+                                </th>
+                                <th>
+                                    Etat Commande
+                                </th>
+                                <th>
+                                    Produit
+                                </th>
+                                <th>
+                                    Quantité
+                                </th>
+                                <th>
+                                    Date Commande
+                                </th>
+                                <th>
+                                    Prix Total
+                                </th>
+
+                                <th>
+                                    Client
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody id="mourad">
+                            {% for c in commandes %}
+                                {% if c.etatC == 0 %}
+                                    <tr>
+                                        <td>
+                                            {{ c.reference}}
+                                        </td>
+                                        <td>
+                                            Not ready
+                                        </td>
+                                        <td>
+                                            <div class="card-title mb-4">
+                                                <div class="image-container">
+                                                    <img src="{{ asset('Upload/')}}{{ c.idP.nomfile }}"  width="80" height="80" class="img-rectangle" class="col col "  /></a>
+                                                    <div class="middle" style="margin-left: 30px; margin-top: 5px;">
+                                                    {{ c.idP.nom}}
+                                                     </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{ c.quantiteC }}
+                                        </td>
+                                        <td>
+                                            {{ c.dateC |date('d-m-Y') }}
+                                        </td>
+                                        <td>
+                                            {{ c.totalC }}
+                                        </td>
+
+                                        <td>
+                                            {{ c.idUser }}
+                                            {% set name= c.idUser  %}
+
+                                        </td>
+
+                                        <td>
+                                            <a class="btn btn-success a-btn-slide-text" href="{{ path('HistoriqueClient',{'id':c.id}) }}">
+                                                <span><strong> Historique</strong></span></a>
+                                        </td>
+
+                                        <td>
+                                            <a class="btn btn-primary a-btn-slide-text" href="{{ path('ValiderCommandes',{'id':c.id,'name':c.idUser}) }}">
+                                                <span class="fas fa-plus-square" aria-hidden="true"></span>
+                                                <span><strong>Valider</strong></span></a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger a-btn-slide-text" href="{{ path('SupprimerCommandesBack',{'id':c.id}) }}">
+                                                <span class="fas fa-minus-circle" aria-hidden="true"></span>
+                                                <span><strong> Delete</strong></span></a>
+                                        </td>
+
+                                    </tr>
+
+                                {% elseif c.etatC == 1 %}
+                                    <tr>
+                                        <td>
+                                            {{ c.reference}}
+                                        </td>
+                                        <td>
+                                            Ready
+                                        </td>
+                                        <td>
+                                            <div class="card-title mb-4">
+                                                <div class="image-container">
+                                                    <img src="{{ asset('Upload/')}}{{ c.idP.nomfile }}"  width="80" height="80" class="img-rectangle" class="col col "  /></a>
+                                                    <div class="middle" style="margin-left: 30px; margin-top: 5px;">
+                                                        {{ c.idP.nom}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{ c.quantiteC }}
+                                        </td>
+                                        <td>
+                                            {{ c.dateC |date('d-m-Y') }}
+                                        </td>
+                                        <td>
+                                            {{ c.totalC }}
+                                        </td>
+
+                                        <td>
+                                            {{ c.idUser }}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-success a-btn-slide-text" href="{{ path('HistoriqueClient',{'id':c.id}) }}">
+                                                <span><strong> Historique</strong></span></a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-success a-btn-slide-text" href="{{ path('pdf',{'id':c.id}) }}">
+                                                <span class="fas fa-edit" aria-hidden="true"></span>
+                                                <span><strong>Facture</strong></span></a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger a-btn-slide-text" href="{{ path('SupprimerCommandesBack',{'id':c.id}) }}">
+                                                <span class="fas fa-minus-circle" aria-hidden="true"></span>
+                                                <span><strong> Delete</strong></span></a>
+                                        </td>
+
+
+                                    </tr>
+
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table><br>
+                        <div class="navigation text-center" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+{% endblock %}

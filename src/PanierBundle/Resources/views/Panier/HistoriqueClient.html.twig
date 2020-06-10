@@ -1,0 +1,96 @@
+{% extends "@User/Page_admin.html.twig" %}
+{% block body %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#mourad tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <style>
+        a.btn {
+            -webkit-transform: scale(0.8);
+            -moz-transform: scale(0.8);
+            -o-transform: scale(0.8);
+            -webkit-transition-duration: 0.5s;
+            -moz-transition-duration: 0.5s;
+            -o-transition-duration: 0.5s;
+            padding-right: 2px;
+            padding-left: 2px;
+        }
+        .test {
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+        .change {
+            color: white;
+        }
+    </style>
+    <div class="test">
+
+        <div class="col-lg-20 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Client History</h4>
+
+                    <div class="table-responsive pt-3">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>
+                                    User Action's Date
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody id="mourad">
+                            {% for h in historique %}
+                                {% if historique | length ==0 %}
+                                    <tr>
+                                        <td>
+                                           No History
+                                        </td>
+                                        <td>
+                                           No History
+                                        </td>
+
+                                    </tr>
+
+                                {% else %}
+                                    <tr>
+                                        <td>
+                                            {{ h.dateAction | date('d-m-Y')  }}
+                                        </td>
+                                        <td>
+                                            {{ h.action }}
+                                        </td>
+
+
+                                    </tr>
+
+
+
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table><br>
+                        <div class="navigation text-center" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+{% endblock %}
